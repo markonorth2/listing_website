@@ -66,6 +66,19 @@ app.get("/login", (req, res) => {
   res.render("login")
 })
 
+app.get("/register", (req, res) => {
+
+
+  // const user_id = req.session["user_id"]
+  // const user = userDatabase[user_id]
+  // console.log(user)
+  // const templateVars = { user: user, userId: user_id };
+
+  // render the register form
+  res.render("register");
+})
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
