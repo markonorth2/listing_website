@@ -53,16 +53,23 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/login", (req, res) => {
-  //render the register form
+// app.get("/login/:id", (req, res) => {
+//   //render the register form
 
-  // const user_id = req.session["user_id"]
-  // const user = userDatabase[user_id]
+//   // const user_id = req.session["user_id"]
+//   // const user = userDatabase[user_id]
  
-  // const templateVars = { user: user, userId: user_id };
+//   // const templateVars = { user: user, userId: user_id };
 
-  // render the login form
-  // res.render("login", templateVars)
+//   // render the login form
+//   // res.render("login", templateVars)
+//   req.session.user_id = req.params.id; 
+//   res.redirect("/home");
+//   // res.render("login")
+// })
+
+app.get("/login", (req, res) => {
+  
   res.render("login")
 })
 
