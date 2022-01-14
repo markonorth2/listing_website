@@ -52,11 +52,25 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+
 app.get("/", (req, res) => {
-  const id = req.session.user_id 
-  console.log("user id =", id)
-  res.render("index");
+  db.query(`SELECT * FROM products ORDER BY id DESC;`)
+    .then((data) => {
+      const products = data.rows;
+      const user_email = req.session.user_email;
+      const templateVars = { user_email, products };
+      res.render("index", templateVars);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 });
+
+// app.get("/", (req, res) => {
+//   const id = req.session.user_id
+//   console.log("user id =", id)
+//   res.render("index");
+// });
 
 
 app.get("/login/:id", (req, res) => {
@@ -64,18 +78,18 @@ app.get("/login/:id", (req, res) => {
 
   // const user_id = req.session["user_id"]
   // const user = userDatabase[user_id]
- 
+
   // const templateVars = { user: user, userId: user_id };
 
   // render the login form
   // res.render("login", templateVars)
-  req.session.user_id = req.params.id; 
+  req.session.user_id = req.params.id;
   res.redirect("/");
   // res.render("login")
 })
 
 // app.get("/login", (req, res) => {
-  
+
 //   res.render("login")
 // })
 
